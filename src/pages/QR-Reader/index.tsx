@@ -2,9 +2,11 @@ import QrReader from "../../components/QrReader"
 
 export default function QrReaderPage() {
   return (
-    <>
-      <h2>ファイルをアップロードする</h2>
+    <article>
+      <header>
+        <h2>QRコードスキャナー(ファイルをアップロード)</h2>
+      </header>
       <QrReader />
-    </>
+    </article>
   )
 }
