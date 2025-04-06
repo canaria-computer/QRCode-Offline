@@ -1,8 +1,11 @@
-// src/utils/qr.ts
-import { getZXingModule } from "zxing-wasm/reader";
+import { prepareZXingModule } from "zxing-wasm/reader";
 
 export const initializeReader = async () => {
-  await getZXingModule({
-    locateFile: () => "/wasm/zxing_reader.wasm",
+  await prepareZXingModule({
+    overrides: {
+      locateFile: () => "/wasm/zxing_reader.wasm",
+    },
+    equalityFn: Object.is,
+    fireImmediately: true,
   });
 };

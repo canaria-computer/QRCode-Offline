@@ -1,11 +1,15 @@
 import { ParentProps } from "solid-js"
+import PWABadge from "../PWABadge"
+import Header from "../components/Header/Header"
+import Footer from "../components/Footer/Footer"
 
 export default function App(props: ParentProps) {
   return (
-    <div class="global-layout">
-      <header>...Todo</header>
+    <>
+      <Header />
       <main>{props.children}</main>
-      <footer>...Todo</footer>
-    </div>
+      <Footer />
+      <PWABadge />
+    </>
   )
 }
