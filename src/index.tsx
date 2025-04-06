@@ -1,8 +1,9 @@
 /* @refresh reload */
 import { render } from "solid-js/web"
-import "simpledotcss/simple.min.css"
 import { Routes } from "@generouted/solid-router"
 import { prepareZXingModule } from "zxing-wasm/reader";
+import "@lowlighter/matcha/dist/matcha.css";
+import "@lowlighter/matcha/dist/matcha.utilities.css";
 
 prepareZXingModule({
   overrides: {

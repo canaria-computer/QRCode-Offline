@@ -18,12 +18,12 @@ importers:
       '@idxdb/promised':
         specifier: ^4.1.0
         version: 4.1.0
+      '@lowlighter/matcha':
+        specifier: ^3.0.0
+        version: 3.0.0
       '@solidjs/router':
         specifier: ^0.15.3
         version: 0.15.3(solid-js@1.9.5)
-      simpledotcss:
-        specifier: ^2.3.5
-        version: 2.3.5
       solid-js:
         specifier: ^1.9.4
         version: 1.9.5
@@ -820,6 +820,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@lowlighter/matcha@3.0.0':
+    resolution: {integrity: sha512-gkFV18pSXA2ndd15+qu6OkBVI4qeLwu/hCtgOd3SvcRLNXEFpSlUiXy2rHZ1Q2ZzzDciIr7bW4Se3xyo4cg8rA==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2200,9 +2203,6 @@ packages:
   simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
 
-  simpledotcss@2.3.5:
-    resolution: {integrity: sha512-hMpSAIrC6Zfrkgf/3cp2yAWKwql3+IZkwFlhuqlX2dS/aecCazrz2YrN8/6tJY3SYW1rP0Nm5GexHijZ+79f7A==}
-
   smob@1.5.0:
     resolution: {integrity: sha512-g6T+p7QO8npa+/hNx9ohv1E5pVCmWrVCUzUXJyLdMmftX6ER0oiWY/w9knEonLpnOp6b6FenKnMfR8gqwWdwig==}
 
@@ -3419,6 +3419,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@lowlighter/matcha@3.0.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -4939,8 +4941,6 @@ snapshots:
   simple-swizzle@0.2.2:
     dependencies:
       is-arrayish: 0.3.2
-
-  simpledotcss@2.3.5: {}
 
   smob@1.5.0: {}
 

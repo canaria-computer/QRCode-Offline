@@ -7,6 +7,7 @@ export type Path =
   | `/`
   | `/Camera`
   | `/QR-Reader`
+  | `/history`
 
 export type Params = {
   

@@ -1,6 +1,6 @@
 import { createSignal, onMount, onCleanup } from "solid-js";
-import { prepareZXingModule, readBarcodes } from "zxing-wasm/reader";
-import type { ReadResult } from "zxing-wasm/reader";
+import { prepareZXingModule, readBarcodes, ReadResult } from "zxing-wasm/reader";
+import { addHistoryItem } from "../../utils/historyDB";
 
 export default function Camera() {
   const [result, setResult] = createSignal<ReadResult | null>(null);
@@ -23,7 +23,7 @@ export default function Camera() {
             return prefix + path;
           }
         },
-        fireImmediately: true // 即時ロード
+        fireImmediately: true
       });
       console.log("ZXing module initialized");
     } catch (error) {
@@ -36,7 +36,7 @@ export default function Camera() {
   const startScanning = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" } // 背面カメラを優先
+        video: { facingMode: "environment" }
       });
 
       if (videoRef) {
@@ -44,7 +44,6 @@ export default function Camera() {
         await videoRef.play();
         setIsScanning(true);
 
-        // 定期的にフレームをキャプチャしてQRコードをスキャン
         scanInterval = setInterval(scanQRCode, 500);
       }
     } catch (error) {
@@ -74,64 +73,77 @@ export default function Camera() {
 
     if (!context) return;
 
-    // キャンバスサイズをビデオに合わせる
     canvas.width = videoRef.videoWidth;
     canvas.height = videoRef.videoHeight;
 
-    // ビデオフレームをキャンバスに描画
     context.drawImage(videoRef, 0, 0, canvas.width, canvas.height);
 
     try {
-      // キャンバスから画像データを取得
       const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 
-      // QRコードの読み取り
       const results = await readBarcodes(imageData);
 
       if (results && results.length > 0) {
-        setResult(results[0]);
-        stopScanning(); // QRコードが見つかったら停止（必要に応じてコメントアウト）
+        const scannedResult = results[0];
+        setResult(scannedResult);
+
+        // 履歴に保存
+        canvas.toBlob(async (blob) => {
+          if (!blob) throw new Error("Blob conversion failed");
+          await addHistoryItem({
+            image: blob,
+            result: {
+              text: scannedResult.text,
+              format: scannedResult.format,
+              position: scannedResult.position
+            },
+            timestamp: Date.now()
+          });
+        }, "image/jpeg", 0.7);
+
+        stopScanning();
       }
     } catch (error) {
       console.error("Scanning error:", error);
     }
   };
 
-  // コンポーネント破棄時のクリーンアップ
   onCleanup(() => {
     stopScanning();
   });
 
   return (
     <>
-      <h1>QRコードスキャナー</h1>
-      <div class="controls">
+      <h2>QRコードスキャナー</h2>
+      <div>
         {!isScanning() ? (
-          <button onClick={startScanning}>スキャン開始</button>
+          <button onClick={startScanning} class="flash attention">スキャン開始</button>
         ) : (
-          <button onClick={stopScanning}>スキャン停止</button>
+          <button onClick={stopScanning} class="bg-attention">スキャン停止</button>
         )}
       </div>
 
-      <div>
+      <>
         <video
           ref={el => videoRef = el}
           autoplay
           playsinline
           hidden
-        ></video>
+        />
         <canvas
           ref={el => canvasRef = el}
-        ></canvas>
-      </div>
+          class={`${result() !== null ? "bd-success" : ""} ${result() === null && !isScanning() ? "muted" : ""}`}
+        />
+      </>
       {errorMessage() && <p class="error">{errorMessage()}</p>}
       {result() && (
         <div class="result">
           <h2>スキャン結果:</h2>
           <p>形式: {result()?.format}</p>
-          <p>内容: {result()?.text}</p>
+          <p>内容: <output>{result()?.text}</output></p>
         </div>
       )}
+
     </>
   );
 }
