@@ -1,8 +1,6 @@
 /* @refresh reload */
 import { render } from "solid-js/web"
-import App from "./App.tsx"
 import "simpledotcss/simple.min.css"
+import { Routes } from "@generouted/solid-router"
 
-const root = document.getElementById("root")
-
-render(() => <App />, root!)
+render(() => <Routes />, document.getElementById("root")!)
