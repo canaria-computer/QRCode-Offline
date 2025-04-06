@@ -6,8 +6,14 @@ export default function Home() {
     <section>
       <h2 class="pt-2">QRコードリーダーアプリケーション</h2>
       <p>オフラインでも利用できるシンプルなQRコードリーダーです。煩わしい広告はありません。利用料もかかりません。</p>
-      <A href="/Camera">QRCodeリーダーを開く</A>
-      <A href="/QR-Reader">ファイルをアップロードして読み込む</A>
+      <ul>
+        <li>
+          <A href="/Camera">QRCodeリーダーを開く</A>
+        </li>
+        <li>
+          <A href="/QR-Reader">ファイルをアップロードして読み込む</A>
+        </li>
+      </ul>
       <h2 class="pt-2">履歴機能搭載</h2>
       <p>
         履歴機能があります。最大1000回の記録を保持します。<br />
