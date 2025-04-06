@@ -7,9 +7,7 @@ export default function QrReader() {
   const [error, setError] = createSignal<QRError | null>(null);
   const [isLoading, setIsLoading] = createSignal(false);
 
-  // QRコード内容の種類を判定して適切なUI表示を返す関数
   const formatQRContent = (text: string) => {
-    // URLパターン
     if (/^(https?:\/\/|www\.)/i.test(text)) {
       const url = text.startsWith("http") ? text : `https://${text}`;
       return (
@@ -24,7 +22,6 @@ export default function QrReader() {
       );
     }
 
-    // メールアドレス
     if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) {
       return (
         <section>
@@ -38,7 +35,6 @@ export default function QrReader() {
       );
     }
 
-    // 電話番号
     if (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(text.replace(/\s/g, ""))) {
       const cleanNumber = text.replace(/[^\d+]/g, "");
       return (
@@ -53,7 +49,6 @@ export default function QrReader() {
       );
     }
 
-    // その他のテキスト
     return (
       <section>
         <h3>テキスト</h3>

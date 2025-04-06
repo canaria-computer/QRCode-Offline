@@ -1,5 +1,6 @@
 import { A } from "../../router";
 import { useLocation } from "@solidjs/router";
+import favicon from "../../assets/favicon.svg";
 
 export default function Header() {
   const location = useLocation();
@@ -12,9 +13,10 @@ export default function Header() {
     <>
       <header class="mt-1">
         <hgroup class="p-1">
-          <h1 >シンプルQRコードリーダー</h1>
+          <h1><img src={favicon} alt="" />シンプルQRコードリーダー</h1>
           <p>オフラインでも利用できるシンプルなQRコードリーダー。広告なし。</p>
         </hgroup>
+        <A href="/">ホームへ戻る</A>
       </header>
       {location.pathname !== "/" && (
         <nav>

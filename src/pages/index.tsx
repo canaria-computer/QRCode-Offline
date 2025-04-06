@@ -1,4 +1,3 @@
-// src/pages/index.tsx
 import { A } from "../router"
 
 export default function Home() {
